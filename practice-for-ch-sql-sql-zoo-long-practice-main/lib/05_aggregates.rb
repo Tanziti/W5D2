@@ -85,16 +85,10 @@ def populous_country_counts
     continent, COUNT(name)
   FROM
     countries
-  WHERE
-    name in
-    (SELECT
-      name,
-    FROM
-      countries
+    WHERE 
+    name in (SELECT name FROM countries WHERE population >= 10000000)
   GROUP BY
-    name
-  HAVING
-    MIN(population) >= 10000000);
+    continent;
   SQL
 end
 
