@@ -35,7 +35,7 @@ end
 def larger_than_russia
   # List each country name where the population is larger than 'Russia'.
   execute(<<-SQL)
-  SELECT 
+  SELECT
     name
   FROM
     countries
@@ -53,19 +53,19 @@ def richer_than_england
   # Show the countries in Europe with a per capita GDP greater than
   # 'United Kingdom'.
   execute(<<-SQL)
-  SELECT 
+  SELECT
     name
-  FROM 
+  FROM
     countries
   WHERE
-    continent = 'Europe' 
-    AND (gdp/population) > 
+    continent = 'Europe'
+    AND (gdp/population) >
     (SELECT
       (gdp/population)
     FROM
     countries
     WHERE
-      name LIKE 'United Kingdom'); 
+      name LIKE 'United Kingdom');
   SQL
 end
 
@@ -108,7 +108,7 @@ def population_constraint
     FROM
       countries
     WHERE
-    name LIKE 'Poland');  
+    name LIKE 'Poland');
   SQL
 end
 
@@ -118,5 +118,21 @@ def sparse_continents
   # population.
   # Hint: Sometimes rewording the problem can help you see the solution.
   execute(<<-SQL)
+  SELECT
+    name, continent, population
+  FROM
+    countries
+  WHERE
+  continent in
+    (SELECT
+      continent
+    FROM
+      countries
+    GROUP BY
+      continent
+    HAVING
+      MAX(population) < 25000000);
+
+
   SQL
 end
