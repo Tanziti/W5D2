@@ -114,6 +114,28 @@ def casablanca_cast
   # in the previous question directly in your query (for example, id = 1).
   execute(<<-SQL)
   SELECT
+    name
+  FROM
+    actors
+  WHERE
+   id in (SELECT
+            actor_id
+          FROM
+            castings
+          WHERE
+            movie_id = (SELECT
+              id
+            FROM
+              movies
+            WHERE
+              title LIKE 'Casablanca'));
+  SQL
+end
+
+def alien_cast
+  # Obtain the cast list for the film 'Alien'.
+  execute(<<-SQL)
+  SELECT
     actors.name
   FROM
     movies
@@ -122,12 +144,6 @@ def casablanca_cast
   JOIN
     actors ON castings.actor_id = actors.id 
   WHERE 
-    movies.title LIKE 'Casablanca';
-  SQL
-end
-
-def alien_cast
-  # Obtain the cast list for the film 'Alien'.
-  execute(<<-SQL)
+    movies.title LIKE 'Alien';
   SQL
 end
