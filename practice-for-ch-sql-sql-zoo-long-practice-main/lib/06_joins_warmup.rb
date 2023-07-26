@@ -62,18 +62,38 @@ def trek_films
   # these movies include the words 'Star Trek' in the title). Order results by
   # year.
   execute(<<-SQL)
+  SELECT
+    id,title, yr
+  FROM
+    movies
+  WHERE
+    title LIKE 'Star Trek%'
+  ORDER BY
+    yr ASC;
   SQL
 end
 
 def films_by_id
   # What are the titles of the films with id 1119, 1595, 1768?
   execute(<<-SQL)
+  SELECT
+    title
+  FROM
+    movies
+  WHERE
+    id in (1119, 1595, 1768);
   SQL
 end
 
 def glenn_close_id
   # What id number does the actress 'Glenn Close' have?
   execute(<<-SQL)
+  SELECT
+    id
+  FROM
+    actors
+  WHERE
+    name LIKE 'Glenn Close';
   SQL
 end
 
