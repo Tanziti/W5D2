@@ -66,10 +66,11 @@ def ford_supporting_films
     castings ON movies.id = castings.movie_id
   JOIN
     actors ON castings.actor_id = actors.id
-  ORDER BY
-    castings.ord DESC
   WHERE
-    actors.name = 'Harrison Ford' AND castings.ord != 1;
+    actors.name = 'Harrison Ford' AND castings.ord != 1
+  ORDER BY
+    castings.ord DESC;
+
 
 
   SQL
