@@ -100,6 +100,12 @@ end
 def casablanca_id
   # What is the id of the film 'Casablanca'?
   execute(<<-SQL)
+  SELECT
+    id
+  FROM
+    movies
+  WHERE
+    title LIKE 'Casablanca';
   SQL
 end
 
@@ -107,6 +113,16 @@ def casablanca_cast
   # Obtain the cast list for 'Casablanca'. Use the id value that you obtained
   # in the previous question directly in your query (for example, id = 1).
   execute(<<-SQL)
+  SELECT
+    actors.name
+  FROM
+    movies
+  JOIN 
+    castings ON movies.id = castings.movie_id 
+  JOIN
+    actors ON castings.actor_id = actors.id 
+  WHERE 
+    movies.title LIKE 'Casablanca';
   SQL
 end
 
